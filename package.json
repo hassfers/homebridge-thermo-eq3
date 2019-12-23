@@ -1,0 +1,23 @@
+{
+  "name": "homebridge-thermo-eq3",
+  "version": "1.0.0",
+  "description": "homebridge plugin for eq3 thermo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.2.0"
+  },
+  "author": "ich",
+  "license": "ISC",
+  "dependencies": {
+    "console-stamp": "^0.2.9",
+    "eq3-bluetooth-thermostat": "^1.0.1",
+    "shelljs": "^0.8.3"
+  }
+}
