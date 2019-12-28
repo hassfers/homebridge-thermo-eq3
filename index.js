@@ -25,15 +25,16 @@ function eq3blePython(log, config) {
 	this.log = log;
 	this.config = config;
 	this.thermoService = new Service.Thermostat(config['name']);
-	console.log(this.thermoService)
-	this.thermostat = new Thermostat(config['address'],Characteristic,this.thermoService)
+	this.switchService = new Service.Switch(config['name']+ " " + 'Boost');
+	
+	this.thermostat = new Thermostat(config['address'],Characteristic,this.thermoService,this.switchService)
 
 	var thermostat = this.thermostat
-	console.log(thermostat)
-
-	console.log(this.workingDir)
-	console.log("config:");
-	console.log(config);
+	// console.log(thermostat)
+	// console.log(this.thermoService)
+	// console.log(this.workingDir)
+	// console.log("config:");
+	// console.log(config);
 
 	this.informationService = new Service.AccessoryInformation();
 	this.informationService
@@ -41,8 +42,7 @@ function eq3blePython(log, config) {
 		.setCharacteristic(Characteristic.Model, "My temp Boost Switch")
 		.setCharacteristic(Characteristic.SerialNumber, "123-456-789");
 
-
-	this.switchService = new Service.Switch(config['name']+ 'Boost');
+	
 	this.switchService
 		.getCharacteristic(Characteristic.On)
 		.on('get', thermostat.getSwitchOnCharacteristic.bind(thermostat))
@@ -71,11 +71,8 @@ function eq3blePython(log, config) {
 	  
 	  this.thermoService
       .getCharacteristic(Characteristic.CurrentTemperature)
-      .on('get', thermostat.getCurrentTemperature.bind(thermostat));
-
-	//   this.thermoService
-    //   .getCharacteristic(Characteristic.CurrentRelativeHumidity)
-    //   .on('get', thermostat.getCurrentRelativeHumidity.bind(thermostat));
+	  .on('get', thermostat.getCurrentTemperature.bind(thermostat));
+	  
 
 	  this.thermoService 
       .getCharacteristic(Characteristic.TemperatureDisplayUnits)
@@ -84,27 +81,11 @@ function eq3blePython(log, config) {
 
 	// console.log(this.switchService)
 	console.log("init complete")
-
 }
 
 
 // Service declaration  
 eq3blePython.prototype.getServices = function () {
-	// let informationService = new Service.AccessoryInformation();
-	// informationService
-	//   .setCharacteristic(Characteristic.Manufacturer, "sth")
-	//   .setCharacteristic(Characteristic.Model, "My temp Boost Switch")
-	//   .setCharacteristic(Characteristic.SerialNumber, "123-456-789");
-
-	// let switchService = new Service.Switch("My switch");
-	// switchService
-	//   .getCharacteristic(Characteristic.On)
-	//   .on('get', this.getSwitchOnCharacteristic.bind(this))
-	//   .on('set', this.setSwitchOnCharacteristic.bind(this));
-	//
-	// this.informationService = informationService;
-	// this.switchService = switchService;
-
 	return [this.switchService, this.informationService, this.thermoService];
 }
 
