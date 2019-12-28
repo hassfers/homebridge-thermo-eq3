@@ -4,6 +4,10 @@ var shell = require('shelljs');
 class BluetoothService{
     constructor(address){
         this.address = address
+        this.parameter = {
+            boost: false,
+            temperature: 20
+        }
     }
 }
 
@@ -28,7 +32,26 @@ BluetoothService.prototype.updateDeviceStatus = function(next) {
             console.error(err)
           }
         console.log("refresh device State")
-        shell.exec(CommandPath + this.address +  "clear")
+        shell.exec(CommandPath + this.address +  " clear")
+    }
+
+    BluetoothService.prototype.setTemperature = function(temperature) {
+        console.log("set Temperature device: " + this.address +" "+ temperature) 
+
+    }
+
+    BluetoothService.prototype.setBoostMode = function(boostMode) {
+        console.log("set Temperature device: " + this.address + " " + boostMode) 
+        if (this.parameter.boost == boostMode) { return }
+        this.parameter.boost = boostMode
+        if(boostMode){
+        let output = shell.exec(CommandPath + this.address + " boost", /*{silent:true}*/)
+        console.log("setting boost to " + boostMode)
+        } else {
+        let output = shell.exec(CommandPath+ this.address + " boost off", /*{silent:true}*/)
+        console.log("setting boost to " + boostMode)
+        }
+        shell.exec(CommandPath + this.address +  " clear")
     }
 
 module.exports = BluetoothService

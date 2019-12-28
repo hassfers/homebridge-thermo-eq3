@@ -39,7 +39,7 @@ Thermostat.prototype.refreshDeviceState = function (next){
   }
 
 Thermostat.prototype.getSwitchOnCharacteristic = function (next) {
-console.log(`calling getOnCharacteristicHandler`, this.isOn)
+console.log(`calling getOnCharacteristicHandler` + this.isOn + this.address)
 return next(null, this.isOn);
 }
 
@@ -56,6 +56,7 @@ Thermostat.prototype.setSwitchOnCharacteristic = function (on, next) {
 
 this.isOn = on
 console.log('setSwitchOnCharacteristic')
+this.bluetoothService.setBoostMode(this.isOn)
 next(null)
 }
 
@@ -72,21 +73,21 @@ Thermostat.prototype.setTargetHeatingCoolingState = function (value, callback) {
 }
 
 Thermostat.prototype.getTargetTemperature = function (callback) {
-console.log(`Called getTargetTemperature: ${this.targetTemperature}`);
+console.log(`Called getTargetTemperature: ${this.targetTemperature}` + this.address);
   callback(null,this.targetTemperature);
 }
 
 Thermostat.prototype.setTargetTemperature = function (value, callback) {
-  console.log(`Called setTargetTemperature ${value}`);
+  console.log(`Called setTargetTemperature ${value}` + this.address);
   // console.log(this)
   this.targetTemperature = value
+  this.bluetoothService.setTemperature(value)
   this.thermoService.updateCharacteristic(Characteristic.TargetTemperature, this.targetTemperature)
   callback(null);
 }
 
 Thermostat.prototype.getCurrentTemperature = function (callback) {
 callback(null, this.currentTemperature);
-// callback(null, this.temp)
 }
 
 // Thermostat.prototype.getCurrentRelativeHumidity = function (callback) {

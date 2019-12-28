@@ -64,7 +64,7 @@ function eq3blePython(log, config) {
 	.on('get', thermostat.getTargetTemperature.bind(thermostat))
 	.on('set', thermostat.setTargetTemperature.bind(thermostat))
 	.setProps({
-        minValue: 18,
+        minValue: 5,
         maxValue: 30,
         minStep: 1
 	  });
