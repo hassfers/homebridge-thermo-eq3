@@ -62,16 +62,18 @@ Thermostat.prototype.setTargetHeatingCoolingState = function (value, callback) {
 }
 
 Thermostat.prototype.getTargetTemperature = function (callback) {
-console.log(`Called getTargetTemperature: ${this.targetTemperature}` + this.address);
+console.log(`Called getTargetTemperature: ${this.targetTemperature} from ` + this.address);
   callback(null,this.targetTemperature);
 }
 
 Thermostat.prototype.setTargetTemperature = function (value, callback) {
   console.log(`Called setTargetTemperature ${value}` + this.address);
   // console.log(this)
-  //homebridge 
+  // //homebridge 
   this.targetTemperature = value
+  this.currentTemperature = value
   this.thermoService.updateCharacteristic(Characteristic.TargetTemperature, this.targetTemperature)
+  this.thermoService.updateCharacteristic(Characteristic.CurrentTemperature, this.currentTemperature)
   //send to device
   this.bluetoothService.setTemperature(value)
   callback(null);

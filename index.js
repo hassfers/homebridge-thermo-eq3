@@ -86,6 +86,6 @@ function eq3blePython(log, config) {
 
 // Service declaration  
 eq3blePython.prototype.getServices = function () {
-	return [this.switchService, this.informationService, this.thermoService];
+	return [this.informationService,this.thermoService,this.switchService];
 }
 
