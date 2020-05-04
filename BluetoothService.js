@@ -5,6 +5,8 @@ var shell = require('shelljs');
 
 class BluetoothService{
     constructor(address){
+        let output = shell.exec("pwd", { silent: false })
+        console.log("currentPath:" + output) 
         this.address = address
         this.parameter = {
             boost: false,
