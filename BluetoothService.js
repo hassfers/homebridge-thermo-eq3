@@ -1,12 +1,11 @@
 //nohup ./eq3.exp 00:1A:22:0E:01:BE boost off > /dev/null 2>&1 &
-const CommandPath = "/home/pi/homebridge-thermo/homebridge-thermo-eq3/src/eq3.exp "
+const CommandPath = __dirname + "/src/eq3.exp "
 var shell = require('shelljs');
 
 
 class BluetoothService{
     constructor(address){
-        let output = shell.exec("pwd", { silent: false })
-        console.log("currentPath:" + output) 
+        
         this.address = address
         this.parameter = {
             boost: false,
