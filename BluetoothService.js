@@ -15,7 +15,7 @@ class BluetoothService{
 
 BluetoothService.prototype.updateDeviceStatus = function(next) {
         console.log("Update device status: " + this.address) 
-        let output = shell.exec(CommandPath + this.address + " " + "json", { silent: true })
+        let output = shell.exec(CommandPath + this.address + " " + "json", { silent: false })
         try {
             const thermoData = JSON.parse(output)
             // console.log(thermoData)
@@ -33,8 +33,8 @@ BluetoothService.prototype.updateDeviceStatus = function(next) {
 
     BluetoothService.prototype.setTemperature = function(temperature) {
         console.log("set Temperature device: " + this.address + " " + temperature) 
-        let output = shell.exec(CommandPath + this.address + " " +  "temp" + " " + temperature,{silent:true,async:true})
-        shell.exec(CommandPath + this.address + " " +  "clear", {silent:true,async:true})
+        let output = shell.exec(CommandPath + this.address + " " +  "temp" + " " + temperature,{silent:false,async:true})
+  //      shell.exec(CommandPath + this.address + " " +  "clear", {silent:true,async:true})
     }
 
     BluetoothService.prototype.setBoostMode = function(boostMode) {
@@ -43,13 +43,13 @@ BluetoothService.prototype.updateDeviceStatus = function(next) {
         this.parameter.boost = boostMode
 
         if(boostMode){
-        let output = shell.exec(CommandPath + this.address + " " +  "boost", {silent:true,async:true})
+        let output = shell.exec(CommandPath + this.address + " " +  "boost", {silent:false,async:true})
         console.log("setting boost to " + boostMode)
         } else {
-        let output = shell.exec(CommandPath+ this.address + " " + "boost off", {silent:true,async:true})
+        let output = shell.exec(CommandPath+ this.address + " " + "boost off", {silent:false,async:true})
         console.log("setting boost to " + boostMode)
         }
-        shell.exec(CommandPath + this.address + " " +  "clear", {silent:true,async:true})
+   //     shell.exec(CommandPath + this.address + " " +  "clear", {silent:true,async:true})
     }
 
 module.exports = BluetoothService
