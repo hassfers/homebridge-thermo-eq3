@@ -16,7 +16,7 @@ var HomebridgeAPI;
 module.exports = function (homebridge) {
 	Service = homebridge.hap.Service;
 	Characteristic = homebridge.hap.Characteristic;
-	homebridge.registerAccessory('switch-plugin', 'eq3BT-Python', eq3blePython);
+	homebridge.registerAccessory('homebridge-thermo-eq3', 'eq3BT-Python', eq3blePython);
 }
 
 function eq3blePython(log, config) {
