@@ -41,14 +41,14 @@ Thermostat.prototype.refreshDeviceState = function (next){
   }
 
 Thermostat.prototype.getSwitchOnCharacteristic = function (next) {
-console.log(`calling getOnCharacteristicHandler` + this.isOn + this.address)
-next(null, this.isOn);
+console.log(`calling getOnCharacteristicHandler` + this.boostMode + this.address)
+next(null,  this.boostMode);
 }
 
 Thermostat.prototype.setSwitchOnCharacteristic = function (on, next) {
-this.isOn = on
+this.boostMode = on
 console.log('setSwitchOnCharacteristic')
-this.bluetoothService.setBoostMode(this.isOn)
+this.bluetoothService.setBoostMode(this.boostMode)
 next(null)
 }
 
