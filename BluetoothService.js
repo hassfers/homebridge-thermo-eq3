@@ -1,7 +1,7 @@
-//nohup ./eq3.exp 00:1A:22:0E:01:BE boost off > /dev/null 2>&1 &
+//Service for speaking with EQ3-Thermostat
+
 const CommandPath = __dirname + "/src/eq3.exp "
 var shell = require('shelljs');
-
 
 class BluetoothService{
     constructor(address){
