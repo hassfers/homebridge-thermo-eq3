@@ -1,11 +1,6 @@
 //includes 
 require('console-stamp')(console, { pattern: 'dd/mm/yyyy HH:MM:ss.l' });
-// import Thermostat from './Thermostat.js'
 const Thermostat = require('./Thermostat.js')
-// const { getStatus } = require("eq3-bluetooth-thermostat");
-// const { getBluetoothDevice } = require("webbluetooth-bluez");
-// const dbus = require("dbus");
-
 
 //Homebridge
 var Service;
