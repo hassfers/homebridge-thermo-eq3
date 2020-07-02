@@ -14,6 +14,13 @@ module.exports = function (homebridge) {
 	homebridge.registerAccessory('homebridge-thermo-eq3', 'eq3BT-Python', eq3blePython);
 }
 
+function getSerial(){
+	var fs = require('fs');
+	var content = fs.readFileSync('/proc/cpuinfo', 'utf8').split("\n");	
+	var serial = content[content.length-2].split(":");
+	return serial[1].slice(9);
+}
+
 function eq3blePython(log, config) {
 	this.workingDir = "/homebridge/homebridge-thermo-eq3/"
 	this.name = "temp";
@@ -21,7 +28,7 @@ function eq3blePython(log, config) {
 	this.config = config;
 	this.thermoService = new Service.Thermostat(config['name']);
 	this.switchService = new Service.Switch(config['name']+ " " + 'Boost');
-	
+	this.serialNumber = getSerial() + this.name
 	this.thermostat = new Thermostat(config['address'],Characteristic,this.thermoService,this.switchService)
 
 	var thermostat = this.thermostat
@@ -33,9 +40,9 @@ function eq3blePython(log, config) {
 
 	this.informationService = new Service.AccessoryInformation();
 	this.informationService
-		.setCharacteristic(Characteristic.Manufacturer, "sth")
-		.setCharacteristic(Characteristic.Model, "My temp Boost Switch")
-		.setCharacteristic(Characteristic.SerialNumber, "123-456-789");
+		.setCharacteristic(Characteristic.Manufacturer, "hassfers")
+		.setCharacteristic(Characteristic.Model, "eq3-Thermostat")
+		.setCharacteristic(Characteristic.SerialNumber, serialNumber );
 
 	
 	this.switchService
@@ -75,6 +82,7 @@ function eq3blePython(log, config) {
       .on('set', thermostat.setTemperatureDisplayUnits.bind(thermostat));
 
 	// console.log(this.switchService)
+	console.log("serialNumber " + this.serialNumber)
 	console.log("init complete")
 }
 
