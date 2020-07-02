@@ -42,7 +42,7 @@ function eq3blePython(log, config) {
 	this.informationService
 		.setCharacteristic(Characteristic.Manufacturer, "hassfers")
 		.setCharacteristic(Characteristic.Model, "eq3-Thermostat")
-		.setCharacteristic(Characteristic.SerialNumber, serialNumber );
+		.setCharacteristic(Characteristic.SerialNumber, this.serialNumber );
 
 	
 	this.switchService
